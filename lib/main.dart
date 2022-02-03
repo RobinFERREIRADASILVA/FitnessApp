@@ -1,15 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitness_app/models/StateModel.dart';
 import 'package:fitness_app/services/authentication.dart';
 import 'package:fitness_app/splashscreen_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_app/home.dart';
 import 'package:fitness_app/signup.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => StateModel(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
