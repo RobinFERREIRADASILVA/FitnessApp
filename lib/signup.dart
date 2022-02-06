@@ -44,87 +44,98 @@ class _SignUpState extends State<SignUp> {
         : Consumer<StateModel>(builder: (context, state, child) {
             return Scaffold(
                 body: Container(
-                    decoration: BoxDecoration(),
-                    padding: EdgeInsets.only(top: 60, left: 20, right: 20),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: [
-                        Text(!state.register ? 'Se connecter' : 'Inscription'),
-                        Form(
-                            key: formKey,
+                        Image.asset(
+                          'images/signup.jfif',
+                        ),
+                        Expanded(
                             child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                                  child: TextFormField(
-                                    controller: emailController,
-                                    decoration: InputDecoration(
-                                        labelText: 'Email',
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)))),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Veuillez rentrer un email';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                                  child: TextFormField(
-                                    controller: passwordController,
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                        labelText: 'Mot de passe',
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)))),
-                                    validator: (value) {
-                                      if (value == null ||
-                                          value.isEmpty ||
-                                          value.length < 6) {
-                                        return 'Veuillez rentrer un mot de passe';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Text(error),
-                                ElevatedButton(
-                                    onPressed: () async {
-                                      // Validate returns true if the form is valid, or false otherwise.
-                                      if (formKey.currentState!.validate()) {
-                                        setState(() {
-                                          loading = true;
-                                        });
-                                        String password =
-                                            passwordController.value.text;
-                                        String email =
-                                            emailController.value.text;
+                          children: [
+                            Text(!state.register
+                                ? 'Se connecter'
+                                : 'Inscription'),
+                            Form(
+                                key: formKey,
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 10, bottom: 10),
+                                      child: TextFormField(
+                                        controller: emailController,
+                                        decoration: InputDecoration(
+                                            labelText: 'Email',
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20)))),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Veuillez rentrer un email';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 10, bottom: 10),
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        obscureText: true,
+                                        decoration: InputDecoration(
+                                            labelText: 'Mot de passe',
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20)))),
+                                        validator: (value) {
+                                          if (value == null ||
+                                              value.isEmpty ||
+                                              value.length < 6) {
+                                            return 'Veuillez rentrer un mot de passe';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                    Text(error),
+                                    ElevatedButton(
+                                        onPressed: () async {
+                                          // Validate returns true if the form is valid, or false otherwise.
+                                          if (formKey.currentState!
+                                              .validate()) {
+                                            setState(() {
+                                              loading = true;
+                                            });
+                                            String password =
+                                                passwordController.value.text;
+                                            String email =
+                                                emailController.value.text;
 
-                                        dynamic result = !state.register
-                                            ? await _auth.signIn(
-                                                email, password)
-                                            : await _auth.registerUser(
-                                                email, password);
-                                        print(result);
+                                            dynamic result = !state.register
+                                                ? await _auth.signIn(
+                                                    email, password)
+                                                : await _auth.registerUser(
+                                                    email, password);
+                                            print(result);
 
-                                        if (result == null) {
-                                          setState(() {
-                                            loading = false;
-                                            error =
-                                                'Please supply a valid email';
-                                          });
-                                        }
-                                      }
-                                    },
-                                    child: Text(!state.register
-                                        ? 'Se connecter'
-                                        : "S'inscrire")),
-                              ],
-                            ))
+                                            if (result == null) {
+                                              setState(() {
+                                                loading = false;
+                                                error =
+                                                    'Please supply a valid email';
+                                              });
+                                            }
+                                          }
+                                        },
+                                        child: Text(!state.register
+                                            ? 'Se connecter'
+                                            : "S'inscrire")),
+                                  ],
+                                ))
+                          ],
+                        ))
                       ],
                     )));
           });
