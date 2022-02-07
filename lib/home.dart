@@ -53,13 +53,16 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(18.0),
                         ),
                         padding: EdgeInsets.only(
-                            top: 10,
-                            bottom: 10,
+                            top: 15,
+                            bottom: 15,
                             left: MediaQuery.of(context).size.width / 2.8,
                             right: MediaQuery.of(context).size.width / 2.8)),
                     child: Text('Se connecter',
                         style: GoogleFonts.robotoCondensed(
                             color: Colors.black, fontSize: 16))),
+                SizedBox(
+                  height: 10,
+                ),
                 ElevatedButton(
                     onPressed: () {
                       stateAccess.changeRegisterState(true);
@@ -74,8 +77,8 @@ class _HomePageState extends State<HomePage> {
                           borderRadius: BorderRadius.circular(18.0),
                         ),
                         padding: EdgeInsets.only(
-                            top: 10,
-                            bottom: 10,
+                            top: 15,
+                            bottom: 15,
                             left: MediaQuery.of(context).size.width / 2.6,
                             right: MediaQuery.of(context).size.width / 2.6)),
                     child: Text("S'inscrire",

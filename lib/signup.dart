@@ -44,14 +44,25 @@ class _SignUpState extends State<SignUp> {
         : Consumer<StateModel>(builder: (context, state, child) {
             return Scaffold(
                 body: Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white,
+                            Colors.black87,
+                          ],
+                        ),
+                        border: Border(top: BorderSide.none)),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: [
                         Image.asset(
-                          'images/signup.jfif',
+                          'images/logo.png',
                         ),
                         Expanded(
-                            child: Column(
+                            child: Container(
+                                child: Column(
                           children: [
                             Text(!state.register
                                 ? 'Se connecter'
@@ -101,6 +112,25 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     Text(error),
                                     ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            onPrimary: Colors.indigo,
+                                            elevation: 4,
+                                            primary: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                            ),
+                                            padding: EdgeInsets.only(
+                                                top: 15,
+                                                bottom: 15,
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2.8,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2.8)),
                                         onPressed: () async {
                                           // Validate returns true if the form is valid, or false otherwise.
                                           if (formKey.currentState!
@@ -135,7 +165,7 @@ class _SignUpState extends State<SignUp> {
                                   ],
                                 ))
                           ],
-                        ))
+                        )))
                       ],
                     )));
           });
