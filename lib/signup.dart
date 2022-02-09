@@ -45,20 +45,17 @@ class _SignUpState extends State<SignUp> {
             return Scaffold(
                 body: Container(
                     decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Colors.white,
-                            Colors.black87,
-                          ],
-                        ),
+                        color: Colors.black,
                         border: Border(top: BorderSide.none)),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: [
                         Image.asset(
-                          'images/logo.png',
+                          'images/logo.jpg',
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
+                          height: 400,
+                          colorBlendMode: BlendMode.hardLight,
                         ),
                         Expanded(
                             child: Container(
@@ -78,7 +75,11 @@ class _SignUpState extends State<SignUp> {
                                         controller: emailController,
                                         decoration: InputDecoration(
                                             labelText: 'Email',
+                                            filled: true,
                                             border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey,
+                                                    width: 1.0),
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(20)))),
                                         validator: (value) {
