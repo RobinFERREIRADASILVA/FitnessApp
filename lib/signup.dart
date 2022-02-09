@@ -54,34 +54,81 @@ class _SignUpState extends State<SignUp> {
                           'images/logo.jpg',
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.cover,
-                          height: 400,
+                          height: 470,
                           colorBlendMode: BlendMode.hardLight,
                         ),
                         Expanded(
                             child: Container(
                                 child: Column(
                           children: [
-                            Text(!state.register
-                                ? 'Se connecter'
-                                : 'Inscription'),
                             Form(
                                 key: formKey,
                                 child: Column(
                                   children: [
+                                    if (state.register)
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10,
+                                            bottom: 10,
+                                            left: 10,
+                                            right: 10),
+                                        child: TextFormField(
+                                          controller: emailController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Nom',
+                                            labelStyle: TextStyle(
+                                                color: Color(0xFF6a6b76)),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  color: Color(0xFF6a6b76),
+                                                  width: 1.0),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  color: Color(0xFF6a6b76),
+                                                  width: 1.0),
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Veuillez rentrer un email';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
                                     Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 10, bottom: 10),
+                                      padding: const EdgeInsets.only(
+                                          top: 10,
+                                          bottom: 10,
+                                          left: 10,
+                                          right: 10),
                                       child: TextFormField(
                                         controller: emailController,
-                                        decoration: InputDecoration(
-                                            labelText: 'Email',
-                                            filled: true,
-                                            border: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey,
-                                                    width: 1.0),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20)))),
+                                        decoration: const InputDecoration(
+                                          labelText: 'Email',
+                                          labelStyle: TextStyle(
+                                              color: Color(0xFF6a6b76)),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                            borderSide: BorderSide(
+                                                color: Color(0xFF6a6b76),
+                                                width: 1.0),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                            borderSide: BorderSide(
+                                                color: Color(0xFF6a6b76),
+                                                width: 1.0),
+                                          ),
+                                        ),
                                         validator: (value) {
                                           if (value == null || value.isEmpty) {
                                             return 'Veuillez rentrer un email';
@@ -91,16 +138,33 @@ class _SignUpState extends State<SignUp> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 10, bottom: 10),
+                                      padding: const EdgeInsets.only(
+                                          top: 10,
+                                          bottom: 10,
+                                          left: 10,
+                                          right: 10),
                                       child: TextFormField(
                                         controller: passwordController,
                                         obscureText: true,
-                                        decoration: InputDecoration(
-                                            labelText: 'Mot de passe',
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20)))),
+                                        decoration: const InputDecoration(
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                            borderSide: BorderSide(
+                                                color: Color(0xFF6a6b76),
+                                                width: 1.0),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                            borderSide: BorderSide(
+                                                color: Color(0xFF6a6b76),
+                                                width: 1.0),
+                                          ),
+                                          labelText: 'Mot de passe',
+                                          labelStyle: TextStyle(
+                                              color: Color(0xFF6a6b76)),
+                                        ),
                                         validator: (value) {
                                           if (value == null ||
                                               value.isEmpty ||
@@ -160,9 +224,12 @@ class _SignUpState extends State<SignUp> {
                                             }
                                           }
                                         },
-                                        child: Text(!state.register
-                                            ? 'Se connecter'
-                                            : "S'inscrire")),
+                                        child: Text(
+                                          !state.register
+                                              ? 'Se connecter'
+                                              : "S'inscrire",
+                                          style: TextStyle(color: Colors.black),
+                                        )),
                                   ],
                                 ))
                           ],
