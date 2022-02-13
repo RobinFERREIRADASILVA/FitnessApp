@@ -11,6 +11,8 @@ class SplashScreenWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<AppUser?>(context);
 
+    print(user);
+
     if (user == null) {
       return HomePage(title: 'Fitness App');
     } else {

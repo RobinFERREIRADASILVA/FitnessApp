@@ -17,11 +17,13 @@ class _SignUpState extends State<SignUp> {
   // int _counter = 0;
   String userEmail = '';
   String userPassword = '';
+  String userName = '';
   String error = '';
   bool loading = false;
 
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+  final nameController = TextEditingController();
   final passwordController = TextEditingController();
 
   // void _incrementCounter() {
@@ -34,6 +36,8 @@ class _SignUpState extends State<SignUp> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
+
     super.dispose();
   }
 
@@ -54,11 +58,11 @@ class _SignUpState extends State<SignUp> {
                           'images/logo.jpg',
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.cover,
-                          height: 470,
+                          height: 400,
                           colorBlendMode: BlendMode.hardLight,
                         ),
                         Expanded(
-                            child: Container(
+                            child: SingleChildScrollView(
                                 child: Column(
                           children: [
                             Form(
@@ -73,9 +77,12 @@ class _SignUpState extends State<SignUp> {
                                             left: 10,
                                             right: 10),
                                         child: TextFormField(
-                                          controller: emailController,
+                                          controller: nameController,
+                                          style: TextStyle(color: Colors.white),
                                           decoration: const InputDecoration(
                                             labelText: 'Nom',
+                                            hintStyle: TextStyle(
+                                                color: Color(0xFF6a6b76)),
                                             labelStyle: TextStyle(
                                                 color: Color(0xFF6a6b76)),
                                             focusedBorder: OutlineInputBorder(
@@ -96,7 +103,7 @@ class _SignUpState extends State<SignUp> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'Veuillez rentrer un email';
+                                              return 'Veuillez rentrer un nom';
                                             }
                                             return null;
                                           },
@@ -110,8 +117,11 @@ class _SignUpState extends State<SignUp> {
                                           right: 10),
                                       child: TextFormField(
                                         controller: emailController,
+                                        style: TextStyle(color: Colors.white),
                                         decoration: const InputDecoration(
                                           labelText: 'Email',
+                                          hintStyle: TextStyle(
+                                              color: Color(0xFF6a6b76)),
                                           labelStyle: TextStyle(
                                               color: Color(0xFF6a6b76)),
                                           focusedBorder: OutlineInputBorder(
@@ -144,6 +154,7 @@ class _SignUpState extends State<SignUp> {
                                           left: 10,
                                           right: 10),
                                       child: TextFormField(
+                                        style: TextStyle(color: Colors.white),
                                         controller: passwordController,
                                         obscureText: true,
                                         decoration: const InputDecoration(
@@ -162,6 +173,8 @@ class _SignUpState extends State<SignUp> {
                                                 width: 1.0),
                                           ),
                                           labelText: 'Mot de passe',
+                                          hintStyle: TextStyle(
+                                              color: Color(0xFF6a6b76)),
                                           labelStyle: TextStyle(
                                               color: Color(0xFF6a6b76)),
                                         ),
@@ -207,12 +220,13 @@ class _SignUpState extends State<SignUp> {
                                                 passwordController.value.text;
                                             String email =
                                                 emailController.value.text;
-
+                                            String name =
+                                                nameController.value.text;
                                             dynamic result = !state.register
                                                 ? await _auth.signIn(
                                                     email, password)
                                                 : await _auth.registerUser(
-                                                    email, password);
+                                                    name, email, password);
                                             print(result);
 
                                             if (result == null) {

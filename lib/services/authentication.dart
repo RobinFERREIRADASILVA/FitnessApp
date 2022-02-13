@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_app/models/user.dart';
+import 'package:fitness_app/services/database.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,14 +26,16 @@ class AuthenticationService {
     }
   }
 
-  Future registerUser(String email, String password) async {
+  Future registerUser(String name, String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       User? user = result.user;
 
-      return _userFromFirebaseUser(user!);
+      await DatabaseService(uid: user!.uid).saveUser(name, email);
+
+      return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
     }
