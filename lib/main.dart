@@ -6,6 +6,7 @@ import 'package:fitness_app/splashscreen_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/signup.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +29,13 @@ class MyApp extends StatelessWidget {
           initialData: [],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              textTheme: GoogleFonts.robotoTextTheme(
+                Theme.of(context).textTheme,
+              ).apply(
+                bodyColor: Colors.white,
+              ),
+            ),
             title: 'Fitness App',
             initialRoute: '/',
             routes: {

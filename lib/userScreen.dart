@@ -5,9 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/models/user.dart';
 import 'package:fitness_app/services/authentication.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'models/StateModel.dart';
 
@@ -23,37 +27,98 @@ class _UserHomeState extends State<UserHome> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUser = Provider.of<AppUserData?>(context);
     final firestoreInstance = FirebaseFirestore.instance;
 
-    print(currentUser);
-
     return Consumer<StateModel>(builder: (context, state, child) {
-      print(state.user);
+      var firebaseUser = FirebaseAuth.instance.currentUser;
+
+      firestoreInstance
+          .collection("users")
+          .doc(firebaseUser!.uid)
+          .get()
+          .then((value) {
+        // Map<String, dynamic> data = value.data() as Map<String, dynamic>;
+        state.loadUser(value.data());
+        // clean up code
+      });
 
       return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text('Fitness App'),
+          backgroundColor: Colors.transparent,
+          // title: const Text('Fitness App'),
+          elevation: 0,
           actions: [
             TextButton.icon(
                 onPressed: () async {
                   // await _auth.signOut();
-                  var firebaseUser = FirebaseAuth.instance.currentUser;
-                  firestoreInstance
-                      .collection("users")
-                      .doc(firebaseUser!.uid)
-                      .get()
-                      .then((value) {
-                    state.loadUser(value.data());
-                  });
                 },
                 icon: const Icon(Icons.person),
                 label: const Text('Deconnexion'))
           ],
         ),
-        body: Text('Bonsoir ${state.user} '),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.center,
+                  colors: [
+                    Colors.black87,
+                    Colors.black,
+                  ]),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                ),
+                headerPart,
+                SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Vos entrainements',
+                        style: TextStyle(color: Colors.white)),
+                    Text('Voir tous')
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
       );
     });
   }
 }
+
+Widget headerPart = Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Container(
+      width: 300,
+      child: Text(
+        "Dépassez vos limites, plus d'excuses",
+        style: GoogleFonts.playfairDisplay(
+            color: Colors.white,
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 3),
+      ),
+    ),
+    Container(
+      margin: EdgeInsets.only(top: 13),
+      height: 60,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: Image.network(
+            'https://www.paris-catch.fr/assets/images/actu/shawn-michael-present-au-1000e-raw620.jpg'),
+      ),
+    )
+  ],
+);

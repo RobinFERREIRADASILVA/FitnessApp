@@ -21,8 +21,6 @@ class DatabaseService {
   AppUserData _userFromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     var data = snapshot.data();
-    print(data);
-    print('bonsoir cest dans snap');
     if (data == null) throw Exception("user not found");
     return AppUserData(
       uid: snapshot.id,
@@ -32,7 +30,6 @@ class DatabaseService {
   }
 
   Stream<AppUserData> get user {
-    print('on essaye de get');
     return userCollection.doc(uid).snapshots().map(_userFromSnapshot);
   }
 }
