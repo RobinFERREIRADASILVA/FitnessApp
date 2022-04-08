@@ -1,6 +1,8 @@
+import 'package:fitness_app/bloc/user/user_bloc.dart';
 import 'package:fitness_app/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/common/loading.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'models/StateModel.dart';
@@ -45,7 +47,9 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return loading
         ? Loading()
-        : Consumer<StateModel>(builder: (context, state, child) {
+        : BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+            print('dans le signup');
+            print(state);
             return Scaffold(
                 body: Container(
                     decoration: const BoxDecoration(
@@ -69,7 +73,7 @@ class _SignUpState extends State<SignUp> {
                                 key: formKey,
                                 child: Column(
                                   children: [
-                                    if (state.register)
+                                    if ((state as UserInitialState).register)
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             top: 10,
@@ -216,26 +220,26 @@ class _SignUpState extends State<SignUp> {
                                             setState(() {
                                               loading = true;
                                             });
-                                            String password =
-                                                passwordController.value.text;
-                                            String email =
-                                                emailController.value.text;
-                                            String name =
-                                                nameController.value.text;
-                                            dynamic result = !state.register
-                                                ? await _auth.signIn(
-                                                    email, password)
-                                                : await _auth.registerUser(
-                                                    name, email, password);
-                                            print(result);
+                                            // String password =
+                                            //     passwordController.value.text;
+                                            // String email =
+                                            //     emailController.value.text;
+                                            // String name =
+                                            //     nameController.value.text;
+                                            // dynamic result = !state.register
+                                            //     ? await _auth.signIn(
+                                            //         email, password)
+                                            //     : await _auth.registerUser(
+                                            //         name, email, password);
+                                            // print(result);
 
-                                            if (result == null) {
-                                              setState(() {
-                                                loading = false;
-                                                error =
-                                                    'Please supply a valid email';
-                                              });
-                                            }
+                                            // if (result == null) {
+                                            //   setState(() {
+                                            //     loading = false;
+                                            //     error =
+                                            //         'Please supply a valid email';
+                                            //   });
+                                            // }
                                           }
                                         },
                                         child: Text(
