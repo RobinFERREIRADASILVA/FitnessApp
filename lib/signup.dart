@@ -220,26 +220,26 @@ class _SignUpState extends State<SignUp> {
                                             setState(() {
                                               loading = true;
                                             });
-                                            // String password =
-                                            //     passwordController.value.text;
-                                            // String email =
-                                            //     emailController.value.text;
-                                            // String name =
-                                            //     nameController.value.text;
-                                            // dynamic result = !state.register
-                                            //     ? await _auth.signIn(
-                                            //         email, password)
-                                            //     : await _auth.registerUser(
-                                            //         name, email, password);
-                                            // print(result);
+                                            String password =
+                                                passwordController.value.text;
+                                            String email =
+                                                emailController.value.text;
+                                            String name =
+                                                nameController.value.text;
+                                            dynamic result = !state.register
+                                                ? await _auth.signIn(
+                                                    email, password)
+                                                : await _auth.registerUser(
+                                                    name, email, password);
+                                            print(result);
 
-                                            // if (result == null) {
-                                            //   setState(() {
-                                            //     loading = false;
-                                            //     error =
-                                            //         'Please supply a valid email';
-                                            //   });
-                                            // }
+                                            if (result == null) {
+                                              setState(() {
+                                                loading = false;
+                                                error =
+                                                    'Please supply a valid email';
+                                              });
+                                            }
                                           }
                                         },
                                         child: Text(
