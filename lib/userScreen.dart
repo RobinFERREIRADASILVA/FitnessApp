@@ -30,18 +30,6 @@ class _UserHomeState extends State<UserHome> {
     final firestoreInstance = FirebaseFirestore.instance;
 
     return Consumer<StateModel>(builder: (context, state, child) {
-      var firebaseUser = FirebaseAuth.instance.currentUser;
-
-      firestoreInstance
-          .collection("users")
-          .doc(firebaseUser!.uid)
-          .get()
-          .then((value) {
-        // Map<String, dynamic> data = value.data() as Map<String, dynamic>;
-        state.loadUser(value.data());
-        // clean up code
-      });
-
       return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(

@@ -48,7 +48,6 @@ class _SignUpState extends State<SignUp> {
     return loading
         ? Loading()
         : BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-            print('dans le signup');
             print(state);
             return Scaffold(
                 body: Container(
