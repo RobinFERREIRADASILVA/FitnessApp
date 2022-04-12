@@ -8,14 +8,27 @@ abstract class UserState extends Equatable {
 }
 
 class UserInitialState extends UserState {
-  final bool register;
-
   const UserInitialState({
     required this.register,
   });
 
+  final bool register;
+
   @override
   List<Object> get props => [
         register,
+      ];
+}
+
+class UserDatasState extends UserState {
+  const UserDatasState({
+    required this.user,
+  });
+
+  final Object user;
+
+  @override
+  List<Object> get props => [
+        user,
       ];
 }

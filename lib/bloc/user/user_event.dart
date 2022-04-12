@@ -12,3 +12,9 @@ class UserRegisterEvent extends UserEvent {
 
   UserRegisterEvent(this.value);
 }
+
+class LoadUserEvent extends UserEvent {
+  final dynamic value;
+
+  LoadUserEvent(this.value);
+}
